@@ -1,0 +1,14 @@
+<mat-toolbar class="bg-blue-500!">
+  <button mat-icon-button class="text-white!" (click)="sideBarButtonClick()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="text-white!">Shipment Tracking System</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="text-white!" [matMenuTriggerFor]="menu">
+    <mat-icon>people</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/setting">Setting</button>
+    <button mat-menu-item routerLink="/login">Logout</button>
+  </mat-menu>
+</mat-toolbar>
