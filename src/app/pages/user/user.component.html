@@ -1,8 +1,16 @@
+ <h3 class="text-3xl font-semibold text-center mb-6 text-gray-700">
+      User Management
+    </h3>
 <mat-form-field>
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Name" #input>
 </mat-form-field>
-  <div class="flex justify-end p-8"> <button (click)="onAdd()" mat-raised-button color="primary">Add User</button> </div>
+  <div class="flex justify-end p-8"> <button
+    (click)="onAdd()"
+    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-md shadow-md transition duration-200"
+  >
+    + Add User
+  </button> </div>
   <table mat-table [dataSource]="dataSource" matSort>
 
     <!-- User ID Column -->
@@ -44,36 +52,36 @@
      <!-- Create On Column -->
     <ng-container matColumnDef="createdOn">
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="nowrap-cell"> Created On </th>
-      <td mat-cell *matCellDef="let row" class="nowrap-cell"> {{row.createdOn ? row.createdOn : row.createdOn}} </td>
+      <td mat-cell *matCellDef="let row" class="nowrap-cell"> {{row.createdOn ? row.createdOn.slice(0,10) : 'N/A'}} </td>
     </ng-container>
 
      <!-- Updated On Column -->
       
     <ng-container matColumnDef="updatedOn" >
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="nowrap-cell"> Updated On </th>
-      <td mat-cell *matCellDef="let row" >{{ row.updatedOn ? row.updatedOn : 'NA' }} </td>
+      <td mat-cell *matCellDef="let row" >{{ row.updatedOn ? row.updatedOn.slice(0,10) : 'NA' }} </td>
     </ng-container>
 
  <ng-container matColumnDef="action">
   <th mat-header-cell *matHeaderCellDef mat-sort-header class="nowrap-cell"> Action </th>
   <td mat-cell *matCellDef="let row">
 
-    <button
-      mat-raised-button
-      color="primary" (click)="onEdit(row.userId)"
-      class="action-button edit-button"
-    >
-      <span>Edit</span>
-    </button>
+<div class="flex space-x-2">
+  <button
+    (click)="onEdit(row.userId)"
+    class="px-4 py-1.5 rounded-md bg-blue-100 text-blue-700 hover:bg-blue-200 transition duration-200 font-medium"
+  >
+    Edit
+  </button>
 
-    <button
-      mat-raised-button
-      color="warn"
-      (click)="deleteUser(row.userId)"
-      class="action-button delete-button"
-    >
-      <span>Delete</span>
-    </button>
+  <button
+    (click)="deleteUser(row.userId)"
+    class="px-4 py-1.5 rounded-md bg-red-100 text-red-700 hover:bg-red-200 transition duration-200 font-medium"
+  >
+    Delete
+  </button>
+</div>
+
 
   </td>
 </ng-container>

@@ -35,7 +35,7 @@ export class AddShipmentComponent {
       estimatedDeliverydate: ['', Validators.required],
       userId: ['', Validators.required],
       driverId: ['', Validators.required],
-      latitude: [''],
+      lattitude: [''],
       longitude: ['']
     });
   }
@@ -61,7 +61,7 @@ export class AddShipmentComponent {
         assignedAt: new Date().toISOString()
       },
       trackingDetails: {
-        latitude: formValue.latitude as any,
+        lattitude: formValue.lattitude as any,
         longitude: formValue.longitude as any,
         timeStamp: new Date().toISOString()
       },
@@ -81,6 +81,7 @@ export class AddShipmentComponent {
     });
 
     this.addShipmentForm.reset();
+    this.httpService.getAllShipments();
     this.router.navigate(['/shipment']);
     }
 }

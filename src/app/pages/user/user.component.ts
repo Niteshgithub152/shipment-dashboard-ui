@@ -19,10 +19,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { IUser } from '../../components/interface/User';
 import { HttpService } from '../../http.service';
 import { IResult } from '../../components/interface/IResult';
-import { MatButton, MatAnchor } from "@angular/material/button";
+// import { MatButton, MatAnchor } from "@angular/material/button";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { MatIconModule } from "@angular/material/icon";
-import { UserEditDialogComponent } from '../dialog/user-edit-dialog/user-edit-dialog.component';
 
 @Component({
   selector: 'app-user',
@@ -37,7 +36,6 @@ import { UserEditDialogComponent } from '../dialog/user-edit-dialog/user-edit-di
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatButton,
     MatIconModule
 ],
   templateUrl: './user.component.html',
@@ -99,6 +97,7 @@ ngOnInit() {
       }
     });
   }
+  this.httpService.getAllUser();
   this.router.navigate(['/user'])
 }
   onAdd(): void {

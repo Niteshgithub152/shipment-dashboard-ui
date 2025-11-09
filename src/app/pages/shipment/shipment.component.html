@@ -1,3 +1,6 @@
+ <h3 class="text-3xl font-semibold text-center mb-6 text-gray-700">
+      Shipment Management
+    </h3>
 <mat-form-field>
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="ex Shipment Id" #input>
@@ -5,7 +8,15 @@
 
 
 <div class="mat-elevation-z8">
-    <div class="flex justify-end p-8"> <button (click)="onAdd()" mat-raised-button color="primary btn" style="border: 1px solid; color: blueviolet;">Add User</button> </div>
+    <div class="flex justify-end p-8"> <button
+  mat-raised-button
+  color="primary"
+  class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-md shadow-md"
+  (click)="onAdd()"
+>
+  + Add Shipment
+</button>
+ </div>
   <table mat-table [dataSource]="dataSource" matSort>
 
     <!-- ID Column -->
@@ -34,7 +45,7 @@
 
     <ng-container matColumnDef="estimatedDeliverydate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Estimated Delivery Date </th>
-      <td mat-cell *matCellDef="let row"> {{row.estimatedDeliverydate}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.estimatedDeliverydate.slice(0,10)}} </td>
     </ng-container>
 
     <ng-container matColumnDef="userId">
@@ -48,41 +59,42 @@
     </ng-container>
 
     <ng-container matColumnDef="createdOn">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Created On </th>
-      <td mat-cell *matCellDef="let row"> {{row.createdOn}} </td>
-    </ng-container>
-
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> Created On </th>
+  <td mat-cell *matCellDef="let row" style="min-width: 150px; padding: 10px;">
+    {{row.createdOn.slice(0,10)}}
+  </td>
+</ng-container>
     <ng-container matColumnDef="updatedOn">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated On </th>
-      <td mat-cell *matCellDef="let row"> {{row.updatedOn ? row.updatedOn : "NA"}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.updatedOn ? row.updatedOn.slice(0,10) : "NA"}} </td>
     </ng-container>
 
      <ng-container matColumnDef="action">
   <th mat-header-cell *matHeaderCellDef mat-sort-header class="nowrap-cell"> Action </th>
   <td mat-cell *matCellDef="let row">
 
-    <button
-      mat-raised-button
-      color="primary" (click)="onEdit(row.userId)"
-      class="action-button edit-button"
-    >
-      <span>Edit</span>
-    </button>
+    <div class="flex space-x-2">
+  <button
+    (click)="onEdit(row.shipmentId)"
+    class="px-4 py-1.5 rounded-md bg-blue-100 text-blue-700 hover:bg-blue-200 transition duration-200 font-medium"
+  >
+    Edit
+  </button>
 
-    <button
-      mat-raised-button
-      color="warn"
-      (click)="deleteUser(row.userId)"
-      class="action-button delete-button"
-    >
-      <span>Delete</span>
-    </button>
+  <button
+    (click)="onDelete(row.shipmentId)"
+    class="px-4 py-1.5 rounded-md bg-red-100 text-red-700 hover:bg-red-200 transition duration-200 font-medium"
+  >
+    Delete
+  </button>
+</div>
+
 
   </td>
 </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns; trackBy: trackByShipmentId"></tr>
 
     <!-- Row shown when there is no matching data. -->
     <tr class="mat-row" *matNoDataRow>
@@ -90,6 +102,6 @@
     </tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[10, 50, 100]" aria-label="Select page of users"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[10, 50, 100]" aria-label="Select page of shipments"></mat-paginator>
 </div>
 

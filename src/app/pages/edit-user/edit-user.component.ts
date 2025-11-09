@@ -56,6 +56,7 @@ export class EditComponent {
         console.log('Update successful:', response);
         if(response.isSuccess){
           alert(response.message);
+          this.httpService.getAllUser();
         }
         this.editUserForm.reset();
       }
@@ -63,7 +64,6 @@ export class EditComponent {
 
     this.editUserForm.reset();
     this.router.navigate(['/user']);
-
   }
 
     ngOnInit(): void {

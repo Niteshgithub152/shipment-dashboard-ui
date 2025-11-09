@@ -45,6 +45,10 @@ deleteUser(userId: string) {
     return this.http.get<IResult<IShipment>[]>(this.baseUrl + "/api/GetAllShipments")
   }
 
+  getShipmentbyShipmentId(shipmentId:string){
+    return this.http.get<IResult<IUser>[]>(this.baseUrl + `/api/GetShipmentByShipmentId?ShipmentId=${shipmentId}`)
+  }
+
    insertShipments(shipments: IShipment[]) {
   return this.http.post<IResult<IShipment[]>>(
     this.baseUrl + '/api/InsertShipments',
@@ -59,7 +63,7 @@ deleteUser(userId: string) {
   );
 }
 
-DeleteShipment(shipmentId: string) {
+deleteShipment(shipmentId: string) {
   return this.http.delete<IResult<IShipment>>(`${this.baseUrl}/api/DeleteShipment?shipmentId=${shipmentId}`);
 }
 }

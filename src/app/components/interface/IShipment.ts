@@ -18,7 +18,7 @@ export interface IDriverDetail {
 }
 
 export interface ITrackingDetail {
-  latitude: string;
+  lattitude: string;
   longitude: string;
   timeStamp: string;
 }

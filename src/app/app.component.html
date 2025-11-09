@@ -1,3 +1,4 @@
+<!-- @if(loginCheck){ -->
 <app-header (sidebarToggle)="drawer.toggle()" />
 <mat-drawer-container autosize >
   <mat-drawer #drawer mode="side" class="shadow-lg!" [opened]="isSidebarOpen">
@@ -9,25 +10,20 @@
             <span>Home</span>
           </a></mat-list-item
         >
-        <mat-list-item
+        <mat-list-item *ngIf="isAdmin"
           ><a routerLink="/user" class="menu"
             ><mat-icon class="color-blue-500!">group</mat-icon>
             <span>User</span></a
           ></mat-list-item
         >
-        <mat-list-item
+        <mat-list-item *ngIf="isAdmin"
           ><a routerLink="/shipment" class="menu"
             ><mat-icon class="color-blue-500!">add_shopping_cart</mat-icon>
             <span>Shipment</span></a
           ></mat-list-item
         >
-        <mat-list-item
-          ><a routerLink="/setting" class="menu"
-            ><mat-icon class="color-blue-500!">settings</mat-icon>
-            <span>Setting</span></a
-          ></mat-list-item
-        >
-      </mat-nav-list>
+        
+      </mat-nav-list> 
     </div>
   </mat-drawer>
 
@@ -37,3 +33,7 @@
     </div>
   </mat-drawer-content>
 </mat-drawer-container>
+
+<!-- } @else {
+  <router-outlet></router-outlet>
+} -->

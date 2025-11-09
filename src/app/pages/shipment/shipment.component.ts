@@ -87,12 +87,6 @@ const NAMES: string[] = [
 //   createdOn: string,
 //   updatedOn: string
 export class ShipmentComponent implements AfterViewInit{
-onEdit(arg0: any) {
-throw new Error('Method not implemented.');
-}
-deleteUser(arg0: any) {
-throw new Error('Method not implemented.');
-}
   displayedColumns: string[] = ['shipmentId', 'shipmentOrigin', 'shipmentDestination', 'shipmentStatus', 'estimatedDeliverydate', 'userId','driverDetails','createdOn','updatedOn','action'];
   dataSource!: MatTableDataSource<IShipment>;
   httpService = inject(HttpService);
@@ -132,4 +126,31 @@ throw new Error('Method not implemented.');
     onAdd() {
       this.router.navigate(['/add-shipment'])
     }
+
+    onEdit(shipmentId: any): void {
+    console.log('Edit clicked for row:', shipmentId);
+     this.router.navigate(['/edit-shipment/',shipmentId ])
+    // Add logic for editing here, e.g., opening a dialog or navigating to an edit route.
+  }
+
+    onDelete(shipmentId: string): void {
+  if (!shipmentId) return;
+
+  if (confirm('Are you sure you want to delete this user?')) { // confirmation popup
+    this.httpService.deleteShipment(shipmentId).subscribe({
+      next: (res : any) => {
+        if (res.isSuccess) {
+          alert(res.message); // or use Angular Material Snackbar
+        } else {
+          alert('Failed to delete user');
+        }
+      }
+    });
+  }
+    this.httpService.getAllShipments();
+    this.router.navigate(['/shipment']);
+}
+trackByShipmentId(index: number, shipment: IShipment): string {
+  return shipment.shipmentId;
+}
 }

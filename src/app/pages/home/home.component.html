@@ -1,82 +1,99 @@
-<div>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-    <mat-card class="p-4 bg-blue-200!"
-      ><h1 class="mb-4 text-3xl font-semibold">Sales</h1>
-      <div class="flex justify-between items-center">
-        <div class="flex flex-col gap-2">
-          <span class="font-semibold text-xl">10,000</span>
-          <span class="text-green-600">+10%</span>
-        </div>
-        <div><mat-icon>attach_money</mat-icon></div>
-      </div>
-    </mat-card>
-    <mat-card class="p-4 bg-red-200!"
-      ><h1 class="mb-4 text-3xl font-semibold">Products</h1>
-      <div class="flex justify-between items-center">
-        <div class="flex flex-col gap-2">
-          <span class="font-semibold text-xl">50</span>
-          <span class="text-green-600">-10%</span>
-        </div>
-        <div><mat-icon>add_shopping_cart</mat-icon></div>
-      </div>
-    </mat-card>
-    <mat-card class="p-4 bg-green-200!"
-      ><h1 class="mb-4 text-3xl font-semibold">Orders</h1>
-      <div class="flex justify-between items-center">
-        <div class="flex flex-col gap-2">
-          <span class="font-semibold text-xl">100</span>
-          <span class="text-red-600">-20%</span>
-        </div>
-        <div><mat-icon>bar_chart</mat-icon></div>
-      </div>
-    </mat-card>
-    <mat-card class="p-4 bg-yellow-200!"
-      ><h1 class="mb-4 text-3xl font-semibold">Brands</h1>
-      <div class="flex justify-between items-center">
-        <div class="flex flex-col gap-2">
-          <span class="font-semibold text-xl">10</span>
-          <span class="text-green-600">+8%</span>
-        </div>
-        <div><mat-icon>branding_watermark</mat-icon></div>
-      </div>
-    </mat-card>
-  </div>
+<div class="min-h-screen bg-gray-100 px-4 py-2">
+  <div class="w-full max-w-3xl bg-white rounded-lg shadow-md p-6 mx-auto mt-10">
+    <h1 class="text-3xl font-semibold text-center mb-6 text-gray-700">
+      Track Your Shipment
+    </h1>
 
-  <div class="mt-4">
-    <div class="grid grid-cols-3 gap-8">
-      <mat-card class="col-span-2 p-4">
-        <h1 class="font-semibold">Sales Overview</h1>
-        <canvas
-          baseChart
-          [data]="barChartData"
-          [options]="barChartOptions"
-          [plugins]="barChartPlugins"
-          [legend]="barChartLegend"
-          [type]="'bar'"
-        >
-        </canvas>
-      </mat-card>
-
-      <mat-card class="p-4">
-        <h1 class="font-semibold">Sales by Category Overview</h1>
-        <canvas
-          baseChart
-          [type]="'pie'"
-          [datasets]="pieChartDatasets"
-          [labels]="pieChartLabels"
-          [options]="pieChartOptions"
-          [plugins]="pieChartPlugins"
-          [legend]="pieChartLegend"
-        >
-        </canvas>
-      </mat-card>
+    <div class="flex space-x-2 mb-6">
+      <input
+        type="text"
+        [(ngModel)]="trackingId"
+        placeholder="Enter Shipment ID (e.g. s1)"
+        class="flex-grow px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <button
+        (click)="trackShipment()"
+        class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition"
+      >
+        Track
+      </button>
     </div>
-  </div>
 
-  <div class="mt-4">
-    <mat-card class="p-4 bg-white!">
-      <h1 class="text-xl font-semibold mb-4">Today's Orders</h1>
-      <app-table />
-    </mat-card>
+    <div *ngIf="loading" class="text-blue-600 text-center mt-4 font-medium">
+      Loading shipment details...
+    </div>
+
+    <div *ngIf="shipment && !loading" class="mt-6 text-gray-700">
+      <!-- Shipment Details -->
+      <h3 class="font-semibold text-blue-700 text-xl mb-3">Shipment Details</h3>
+      <table class="w-full table-fixed border-collapse">
+        <tbody>
+          <tr class="border-b border-gray-200">
+            <td class="font-semibold w-1/4 px-4 py-3">Origin:</td>
+            <td class="w-1/4 px-4 py-3">{{ shipment.shipmentOrigin }}</td>
+            <td class="font-semibold w-1/4 px-4 py-3">Destination:</td>
+            <td class="w-1/4 px-4 py-3">{{ shipment.shipmentDestination }}</td>
+          </tr>
+          <tr class="border-b border-gray-200">
+            <td class="font-semibold w-1/4 px-4 py-3">Status:</td>
+            <td class="w-1/4 px-4 py-3">{{ shipment.shipmentStatus }}</td>
+            <td class="font-semibold w-1/4 px-4 py-3">Estimated Delivery:</td>
+            <td class="w-1/4 px-4 py-3">{{ shipment.estimatedDeliverydate | date:'mediumDate' }}</td>
+          </tr>
+          <tr class="border-b border-gray-200">
+            <td class="font-semibold w-1/4 px-4 py-3">User ID:</td>
+            <td class="w-1/4 px-4 py-3">{{ shipment.userId }}</td>
+            <td class="font-semibold w-1/4 px-4 py-3">Created On:</td>
+            <td class="w-1/4 px-4 py-3">{{ shipment.createdOn?.slice(0,10)  || 'NA'}}</td>
+          </tr>
+          <tr>
+            <td class="font-semibold w-1/4 px-4 py-3">Updated On:</td>
+            <td class="w-1/4 px-4 py-3">{{ shipment.updatedOn || 'N/A' }}</td>
+            <td class="w-1/4"></td>
+            <td class="w-1/4"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Driver Details -->
+      <h3 class="font-semibold text-yellow-700 text-xl mt-8 mb-3">Driver Details</h3>
+      <table class="w-full table-fixed border-collapse">
+        <tbody>
+          <tr class="border-b border-gray-200">
+            <td class="font-semibold w-1/4 px-4 py-3">Driver ID:</td>
+            <td class="w-1/4 px-4 py-3">{{ shipment.driverDetails?.driverId || 'N/A' }}</td>
+            <td class="font-semibold w-1/4 px-4 py-3">Assigned At:</td>
+            <td class="w-1/4 px-4 py-3">
+              {{ shipment.driverDetails?.assignedAt ? (shipment.driverDetails.assignedAt.slice(0, 10)) : 'N/A' }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Tracking Details -->
+      <h3 class="font-semibold text-green-700 text-xl mt-8 mb-3">Tracking Details</h3>
+      <table class="w-full table-fixed border-collapse">
+        <tbody>
+          <tr class="border-b border-gray-200">
+            <td class="font-semibold w-1/4 px-4 py-3">Lattitude:</td>
+            <td class="w-1/4 px-4 py-3">{{ shipment.trackingDetails?.lattitude || 'N/A' }}</td>
+            <td class="font-semibold w-1/4 px-4 py-3">Longitude:</td>
+            <td class="w-1/4 px-4 py-3">{{ shipment.trackingDetails?.longitude || 'N/A' }}</td>
+          </tr>
+          <tr>
+            <td class="font-semibold w-1/4 px-4 py-3">Timestamp:</td>
+            <td class="w-1/4 px-4 py-3">
+              {{ shipment.trackingDetails?.timeStamp ? (shipment.trackingDetails.timeStamp.slice(0, 10)) : 'N/A' }}
+            </td>
+            <td class="w-1/4"></td>
+            <td class="w-1/4"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p *ngIf="searched && !shipment && !loading" class="text-red-500 mt-6 text-center font-medium">
+      Shipment not found.
+    </p>
   </div>
 </div>

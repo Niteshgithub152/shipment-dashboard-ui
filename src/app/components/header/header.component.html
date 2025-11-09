@@ -2,13 +2,12 @@
   <button mat-icon-button class="text-white!" (click)="sideBarButtonClick()">
     <mat-icon>menu</mat-icon>
   </button>
-  <span class="text-white!">Shipment Tracking System</span>
+  <button routerLink="home"><span class="text-white!">Shipment Tracking System</span> </button>
   <span class="example-spacer"></span>
   <button mat-icon-button class="text-white!" [matMenuTriggerFor]="menu">
     <mat-icon>people</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink="/setting">Setting</button>
-    <button mat-menu-item routerLink="/login">Logout</button>
+    <button mat-menu-item (click)="logout()">Logout</button>
   </mat-menu>
 </mat-toolbar>
