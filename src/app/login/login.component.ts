@@ -35,7 +35,7 @@ export class LoginComponent {
         }
       },
       error: (e: any) => {
-        this.errorMessage = e.errorMessage;
+        this.errorMessage = 'Invalid Username or Password';
       }
     });
     this.loading = false;
