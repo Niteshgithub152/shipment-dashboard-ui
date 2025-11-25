@@ -1,0 +1,50 @@
+<mat-toolbar class="bg-blue-700! flex justify-between">
+  <div>
+    <span class="text-white!">Shipment Tracking System</span>
+  </div>
+  <!-- <span class="example-spacer"></span> -->
+  <div class="toolbar-right flex items-center">
+    <ul class="p-0 m-0">
+      <li>
+        <a matButton [routerLink]="['/']" class="text-white!">
+          <mat-icon class="material-symbols-outlined">local_shipping</mat-icon>
+          Track Order
+        </a>
+      </li>
+      @if (currentUrl === '/' && !authService.isLoggedIn) {
+        <li>
+          <a matButton [routerLink]="['/login']" class="text-white!">
+            <mat-icon class="material-symbols-outlined">login</mat-icon>
+            Login
+          </a>
+        </li>
+      }
+      @if (authService.isLoggedIn) {
+        <li>
+          <a matButton [routerLink]="['shipment']" class="text-white!">
+            <mat-icon class="material-symbols-outlined">delivery_truck_speed</mat-icon>
+            Shipments
+          </a>
+        </li>
+        <li>
+          <a matButton [routerLink]="['user']" class="text-white!">
+            <mat-icon class="material-symbols-outlined">group</mat-icon>
+            Users
+          </a>
+        </li>
+        <li>
+          <button matButton class="text-white!" [matMenuTriggerFor]="menu">
+            <mat-icon class="material-symbols-outlined">account_circle</mat-icon>
+            {{this.user.name}}
+          </button>
+        </li>
+      }
+    </ul>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="logout()">
+        <mat-icon class="material-symbols-outlined">logout</mat-icon>
+        Logout &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

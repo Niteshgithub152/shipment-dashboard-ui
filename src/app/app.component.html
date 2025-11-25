@@ -1,39 +1,5 @@
-<!-- @if(loginCheck){ -->
-<app-header (sidebarToggle)="drawer.toggle()" />
-<mat-drawer-container autosize >
-  <mat-drawer #drawer mode="side" class="shadow-lg!" [opened]="isSidebarOpen">
-    <div class="bg-gray h-screen">
-      <mat-nav-list role="list">
-        <mat-list-item
-          ><a routerLink="/" class="menu">
-            <mat-icon class="color-blue-500!">house</mat-icon>
-            <span>Home</span>
-          </a></mat-list-item
-        >
-        <mat-list-item *ngIf="isAdmin"
-          ><a routerLink="/user" class="menu"
-            ><mat-icon class="color-blue-500!">group</mat-icon>
-            <span>User</span></a
-          ></mat-list-item
-        >
-        <mat-list-item *ngIf="isAdmin"
-          ><a routerLink="/shipment" class="menu"
-            ><mat-icon class="color-blue-500!">add_shopping_cart</mat-icon>
-            <span>Shipment</span></a
-          ></mat-list-item
-        >
-        
-      </mat-nav-list> 
-    </div>
-  </mat-drawer>
+<app-header />
 
-  <mat-drawer-content>
-    <div class="flex justify-center w-full max-w-px-100">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-drawer-content>
-</mat-drawer-container>
-
-<!-- } @else {
+<section class="px-4">
   <router-outlet></router-outlet>
-} -->
+</section>

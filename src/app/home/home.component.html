@@ -1,0 +1,144 @@
+<div class="px-4 pt-3 pb-6">
+  <div class="w-full max-w-4xl bg-white rounded-lg shadow-xl p-6 mx-auto" [ngClass]="{'mt-3': shipment, 'mt-[20vh]': !shipment}">
+    <div class="text-3xl font-light mb-3 text-gray-700">
+      Track Your Shipment
+    </div>
+    <div class="flex space-x-2 mb-4">
+      <input type="text" [(ngModel)]="trackingId" placeholder="Enter Shipment ID (e.g. s1)"
+        class="bg-white flex-grow px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <button (click)="trackShipment()"
+        class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition">
+        Track
+      </button>
+    </div>
+
+    @if (loading) {
+      <div class="text-blue-600 text-center mt-4 font-medium">
+        Loading shipment details...
+      </div>
+    }
+
+    @if (shipment && !loading) {
+      <div class="mt-6 text-gray-700">
+        <div class="flex items-start justify-between">
+          <div class="text-lg font-bold">
+            {{shipment.shipmentId}}<br/>
+            <span class="badge "
+              [ngClass]="{'badge-success': shipment.shipmentStatus == 'Delivered' || shipment.shipmentStatus == 'Out for Delivery' || shipment.shipmentStatus == 'Out For Delivery',
+                          'badge-primary': shipment.shipmentStatus == 'In Transit', 
+                          'badge-info': shipment.shipmentStatus == 'Created'}">
+              <mat-icon class="material-symbols-outlined">
+                {{shipment.shipmentStatus == 'Delivered' ? 'box' :
+                shipment.shipmentStatus == 'Out for Delivery' || shipment.shipmentStatus == 'Out For Delivery' ? 'hand_package' :
+                shipment.shipmentStatus == 'In Transit' ? 'local_shipping' :
+                shipment.shipmentStatus == 'Item Picked' ? 'local_shipping' :
+                shipment.shipmentStatus == 'Created' ? 'box_add' : ''}}
+              </mat-icon>
+              {{shipment.shipmentStatus}}
+            </span>
+          </div>
+          <div class="text-right">
+            <small>Estimated Delivery by:</small><br/>
+            <span class="text-2xl font-semibold">{{shipment.estimatedDeliverydate | date:'EEEE' }}</span><br/>
+            <span class="text-base font-semibold">{{shipment.estimatedDeliverydate | date:'MMM d, y' }}</span>
+          </div>
+        </div>
+        
+        <div class="w-full flex items-start justify-between mt-6 mb-10">
+          @for(status of statusList; track status; let i = $index){
+            <!-- Step N -->
+            <div class="statusWrapper flex flex-col items-center">
+              <div class="statusDot" [ngClass]="{ 'bg-gray-300': currentStatus < status.id, 'bg-blue-600': currentStatus >= status.id, 'bg-green-600': status.id > 3 && currentStatus >= status.id }">
+              </div>
+              <p class="statusLabel text-sm font-medium text-gray-700">{{status.label}}</p>
+            </div>
+
+            @if (i < statusList.length) {
+              @if (currentStatus >= statusList[i+1].id) {
+                <!-- Line N -->
+                <div class="flex-1 h-1 mx-2 mt-2 bg-blue-600" [ngClass]="{'bg-green-600': status.id > 2}"></div>
+              }
+              @if (currentStatus < statusList[i+1].id) {
+                <!-- Line N -->
+                <div class="flex-1 h-1 mx-2 mt-2 bg-gray-300"></div>
+              }
+            }
+          }
+        </div>
+
+        <div class="detailsWrapper">
+          <!-- Shipment Details -->
+          <h3 class="font-semibold text-blue-700 text-xl mb-3 px-3">Shipment Details</h3>
+          <table class="w-full table-fixed border-collapse">
+            <tbody>
+              <tr class="border-b border-gray-200">
+                <td class="font-semibold w-1/4 px-4 py-3">Origin:</td>
+                <td class="w-1/4 px-4 py-3">{{ shipment.shipmentOrigin }}</td>
+                <td class="font-semibold w-1/4 px-4 py-3">Destination:</td>
+                <td class="w-1/4 px-4 py-3">{{ shipment.shipmentDestination }}</td>
+              </tr>
+              <!-- <tr class="border-b border-gray-200">
+                <td class="font-semibold w-1/4 px-4 py-3">Status:</td>
+                <td class="w-1/4 px-4 py-3">{{ shipment.shipmentStatus }}</td>
+                <td class="font-semibold w-1/4 px-4 py-3">Estimated Delivery:</td>
+                <td class="w-1/4 px-4 py-3">{{ shipment.estimatedDeliverydate | date:'mediumDate' }}</td>
+              </tr> -->
+              <tr class="border-b border-gray-200">
+                <td class="font-semibold w-1/4 px-4 py-3">User ID:</td>
+                <td class="w-1/4 px-4 py-3">{{ shipment.userId }}</td>
+                <!-- <td class="font-semibold w-1/4 px-4 py-3">Created On:</td>
+                <td class="w-1/4 px-4 py-3">{{ shipment.createdOn.slice(0,10) || 'NA'}}</td> -->
+                <td class="font-semibold w-1/4 px-4 py-3">Updated On:</td>
+                <td class="w-1/4 px-4 py-3">{{ shipment.updatedOn || 'N/A' }}</td>
+              </tr>
+              <!-- <tr>
+                <td class="w-1/4"></td>
+                <td class="w-1/4"></td>
+              </tr> -->
+            </tbody>
+          </table>
+  
+          <!-- Tracking Details -->
+          <h3 class="font-semibold text-green-700 text-xl mt-8 mb-3 px-3">Tracking Details</h3>
+          <table class="w-full table-fixed border-collapse">
+            <tbody>
+              <tr class="border-b border-gray-200">
+                <td class="font-semibold w-1/4 px-4 py-3">Current Location:</td>
+                <td class="w-1/4 px-4 py-3">{{ shipment.trackingDetails.currentLocation || 'N/A' }}</td>
+                <td class="font-semibold w-1/4 px-4 py-3 text-right"></td>
+                <td class="w-1/4 px-4 py-3 text-right">
+                  {{ shipment.trackingDetails.timeStamp ? (shipment.trackingDetails.timeStamp.slice(0, 10)) : 'N/A' }}
+                </td>
+              </tr>
+              <!-- <tr>
+                <td class="w-1/4"></td>
+                <td class="w-1/4"></td>
+              </tr> -->
+            </tbody>
+          </table>
+  
+          <!-- Driver Details -->
+          <h3 class="font-semibold text-yellow-700 text-xl mt-8 mb-3 px-3">Driver Details</h3>
+          <table class="w-full table-fixed border-collapse">
+            <tbody>
+              <tr class="border-b border-gray-200">
+                <td class="font-semibold w-1/4 px-4 py-3">Driver ID:</td>
+                <td class="w-1/4 px-4 py-3">{{ shipment.driverDetails.driverId || 'N/A' }}</td>
+                <td class="font-semibold w-1/4 px-4 py-3 text-right">Assigned At:</td>
+                <td class="w-1/4 px-4 py-3 text-right">
+                  {{ shipment.driverDetails.assignedAt ? (shipment.driverDetails.assignedAt.slice(0, 10)) : 'N/A' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+
+    @if (searched && !shipment && !loading) {
+      <p class="text-red-500 mt-6 text-center font-medium">
+        Shipment not found.
+      </p>
+    }
+  </div>
+</div>

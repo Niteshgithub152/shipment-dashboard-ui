@@ -1,0 +1,18 @@
+.statusWrapper {
+    position: relative;
+    .statusDot {
+        border-radius: 50%;
+        height: 20px;
+        width: 20px;
+    }
+    .statusLabel {
+        position: absolute;
+        top: 25px;
+        text-align: center;
+        width: 100px;
+    }
+}
+
+.detailsWrapper {
+    margin: 0 -12px;
+}

@@ -1,0 +1,85 @@
+<mat-card class="mx-auto p-4 w-6/12">
+  <div class="container">
+    <div class="flex items-center text-2xl font-light mb-3 text-black-700">
+      <a matButton class="backBtn" [routerLink]="['/shipment']">
+        <mat-icon>arrow_back</mat-icon>
+      </a>
+      <div class="">
+        Edit Shipment - {{shipmentId}}
+      </div>
+    </div>
+
+    <form [formGroup]="editShipmentForm" (ngSubmit)="onSubmit()">
+      <!-- Shipment Id (disabled) -->
+      <mat-form-field appearance="fill">
+        <mat-label>Shipment Id</mat-label>
+        <input matInput formControlName="shipmentId" [disabled]="true" />
+      </mat-form-field>
+
+      <!-- Shipment Origin -->
+      <mat-form-field appearance="fill">
+        <mat-label>Origin</mat-label>
+        <input matInput formControlName="shipmentOrigin" required />
+      </mat-form-field>
+
+      <!-- Shipment Destination -->
+      <mat-form-field appearance="fill">
+        <mat-label>Destination</mat-label>
+        <input matInput formControlName="shipmentDestination" required />
+      </mat-form-field>
+
+      <!-- Shipment Status -->
+      <mat-form-field appearance="fill">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="shipmentStatus" required>
+          <mat-option value="Item Picked">Created</mat-option>
+          <mat-option value="Item Picked">Item Picked</mat-option>
+          <mat-option value="In Transit">In Transit</mat-option>
+          <mat-option value="Out for Delivery">Out for Delivery</mat-option>
+          <mat-option value="Delivered">Delivered</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Estimated Delivery Date -->
+      <mat-form-field appearance="fill">
+        <mat-label>Estimated Delivery Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="estimatedDeliverydate"
+          required
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <!-- User Id -->
+      <mat-form-field appearance="fill">
+        <mat-label>User Id</mat-label>
+        <input matInput formControlName="userId" required />
+      </mat-form-field>
+
+      <!-- Driver Id -->
+      <mat-form-field appearance="fill">
+        <mat-label>Driver Id</mat-label>
+        <input matInput formControlName="driverId" required />
+      </mat-form-field>
+
+      <!-- Tracking Location -->
+      <mat-form-field appearance="fill">
+        <mat-label>CurrentLocation</mat-label>
+        <input matInput formControlName="currentLocation" />
+      </mat-form-field>
+
+      <!-- Save Button -->
+      <div class="flex justify-center mt-4">
+        <button
+          type="submit"
+          class="bg-blue-600 rounded-sm shadow-md w-full text-white! p-2"
+          [disabled]="editShipmentForm.invalid">
+          Update Shipment
+        </button>
+      </div>
+    </form>
+  </div>
+</mat-card>

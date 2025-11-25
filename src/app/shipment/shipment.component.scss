@@ -1,0 +1,148 @@
+// table {
+//   width: 100%;
+//   table-layout: auto;
+// }
+// .mat-mdc-form-field {
+//   font-size: 14px;
+//   width: 100%;
+// }
+
+// // td, th {
+// //   width: 30%;
+// // }
+// .nowrap-cell {
+//   white-space: nowrap;
+// }
+
+// .mat-elevation-z8 {
+//   width: 100%;
+//   overflow-x: auto;
+// }
+
+// .mat-column-shipmentId {
+//   width: 150px;           
+//   min-width: 130px;
+//   max-width: 150px;
+//   overflow: hidden; 
+//   align-items: center;      
+// }
+
+// .mat-column-estimatedDeliverydate {
+//   width: 250px;
+//   min-width: 250px;
+//   max-width: 250px;
+// }
+
+// .mat-column-createdOn {
+//   width: 250px;           
+//   min-width: 250px;
+//   max-width: 250px;
+//   overflow: hidden; 
+//   align-items: center;      
+// }
+
+// .mat-column-updatedOn {
+//   width: 250px;           
+//   min-width: 250px;
+//   max-width: 250px;
+//   overflow: hidden; 
+//   align-items: center;      
+// }
+
+// .mat-column-shipmentStatus {
+//   width: 100px;           
+//   min-width: 150px;
+//   max-width: 250px;
+//   overflow: hidden; 
+//   align-items: center;      
+// }
+
+// // .mat-column-estimatedDeliverydate {
+// //   width: 250px;           
+// //   min-width: 250px;
+// //   max-width: 250px;
+// //   overflow: hidden; 
+// //   align-items: center;     
+// // }
+
+// .mat-column-action {
+//   min-width: 200px;
+//   max-width: 250px;
+//   text-align: center;
+// }
+
+// table {
+//   width: 100%;
+//   table-layout: auto;
+// }
+// th, td {
+//   white-space: nowrap;
+//   padding: 8px;
+// }
+// .toolbar {
+//   text-align: right;
+//   margin: 16px;
+// }
+
+// .mat-mdc-form-field {
+//   font-size: 14px;
+//   width: 100%;
+// }
+
+// .nowrap-cell {
+//   white-space: nowrap;
+// }
+
+// .mat-elevation-z8 {
+//   width: 100%;
+//   overflow-x: auto;
+//   display: block;
+// }
+
+// .mat-column-shipmentId {
+//   width: 150px;
+//   min-width: 130px;
+//   max-width: 150px;
+// }
+
+// .mat-column-shipmentOrigin,
+// .mat-column-shipmentDestination,
+// .mat-column-userId,
+// .mat-column-driverDetails {
+//   min-width: 150px;
+// }
+
+// .mat-column-shipmentStatus {
+//   min-width: 150px;
+// }
+
+// .mat-column-estimatedDeliverydate,
+// .mat-column-createdOn,
+// .mat-column-updatedOn {
+//   min-width: 200px;
+//   max-width: 250px;
+// }
+
+// .mat-column-action {
+//   min-width: 200px;
+//   text-align: center;
+// }
+
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.nowrap-cell {
+  white-space: nowrap;
+}
+
+th, td {
+  min-width: 100px;
+  // padding: 8px;
+  white-space: nowrap;
+}

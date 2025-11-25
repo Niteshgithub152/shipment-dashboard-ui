@@ -1,16 +1,79 @@
 /* You can add global styles to this file, and also import other style files */
-@import "tailwindcss";
+@use 'tailwindcss';
+
+* {
+  box-sizing: border-box;
+}
 html,
 body {
   height: 100%;
 }
+
 body {
+  // background-color: rgb(238, 238, 238);
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-size: 14px;
   margin: 0;
-  background-color: rgb(238, 238, 238);
-  font-family: "Poppins", serif;
-  font-weight: 300;
-  font-style: normal;
 }
-* {
-  box-sizing: border-box;
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+a {
+  color: #0d6efd!important;
+}
+
+.backBtn {
+  padding: 6px 10px 0px 0;
+  line-height: normal;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 20px;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 400;
+  &.badge-primary {
+    background-color: #0d6efd!important;
+  }
+  &.badge-secondary {
+    background-color: #6c757d!important;
+  }
+  &.badge-success {
+    background-color: #198754!important;
+  }
+  &.badge-danger {
+    background-color: #dc3545!important;
+  }
+  &.badge-warning {
+    background-color: #ffc107!important;
+    color: #212529!important
+  }
+  &.badge-info {
+    background-color: #0dcaf0!important;
+    color: #212529!important;
+  }
+  .material-icons {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+  }
+}
+
+
+
+
+.mat-mdc-row {
+  height: 45px !important;
 }
